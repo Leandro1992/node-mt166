@@ -39,13 +39,13 @@ let dispenser = new MT166({autoDiscovery: true, callbackConnection:(result) => {
 
 ```
 
-#### Building
+## Building
 
 | Dependecy  |
 | ------  |
 | serialport |
 
-# Features
+## Features
 
   - **Move To Capture Box** - Discard card
   - **Move To Read Position** - Move to reader RFID
@@ -59,7 +59,7 @@ let dispenser = new MT166({autoDiscovery: true, callbackConnection:(result) => {
 
 Check the 'exemple.js' file and uncomment action that you would like to test.
 
-### Todos
+## Todos
 
 See file PDF doc on root folder, in there you can see all is possible to do and get better the current implementation
 
