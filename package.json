@@ -1,0 +1,14 @@
+{
+  "name": "node-mt166",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leandro Marques <leandro1992@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "serialport": "^9.0.0"
+  }
+}
