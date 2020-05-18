@@ -3,6 +3,9 @@ Node.js API to comunicate with Mingte tech MT166 RFID card collector and dispens
 
 <img width="300px" src="https://github.com/myTapp/mt166-js/blob/master/card-collector-dispenser-MT166-RF-for-both.jpg?raw=true"></img>
 
+### Github
+Open source with a [Github repository]
+
 ## Quick-start
 
 ```sh
@@ -72,3 +75,5 @@ License
 ----
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+[Github repository]: <https://github.com/Leandro1992/node-mt166>
