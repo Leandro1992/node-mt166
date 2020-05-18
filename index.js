@@ -6,7 +6,7 @@ class MT166 {
         let default_options = {
             port: 6,
             baudRate: 9600,
-            callbackConnection: console.log // Send this if you must know when is connected!
+            callbackConnection: console.log, // Send this if you must know when is connected!
         }
         this.connected = false;
         this.reading = false;
@@ -21,7 +21,7 @@ class MT166 {
                 this.options.callbackConnection({ success: true, connected: true, info: "System is ready!" });
                 this.port.on('error', (data) => {
                     this.connected = false;
-                    console.log(`Error: ${data}`)
+                    this.options.callbackConnection({ success: false, connected: false, info: "Lost Port Connection!" });
                 })
             })
         }
@@ -29,6 +29,10 @@ class MT166 {
 
     autoDiscoveryConnection(startPort, endPort) {
         console.log(`Staring Port Scan...`)
+        if(this.port) {
+            this.port.removeAllListeners("open");
+            this.port.removeAllListeners("error");
+        }
         console.log(`Trying to connect in port #${startPort}...`)
         this.options.port = startPort;
         this.port = new SerialPort(Util.handleWinPorts(startPort), { baudRate: this.options.baudRate, autoOpen: false })
@@ -59,7 +63,7 @@ class MT166 {
             })
             this.port.on('error', (data) => {
                 this.connected = false;
-                console.log(`Error: ${data}`)
+                this.options.callbackConnection({ success: false, connected: false, info: "Lost Port Connection!" });
             })
         })
     }
@@ -171,6 +175,8 @@ class MT166 {
             if (this.reading) {
                 reject({ success: false, data: { reading: true, info: "Transmiting data, try again later" } });
             } else {
+                this.port.removeAllListeners("error");
+                this.port.removeAllListeners("once");
                 this.reading = true;
                 this.port.flush();
                 this.port.write(command);
@@ -180,6 +186,7 @@ class MT166 {
                 });
                 this.port.once('error', (err) => {
                     this.reading = false;
+                    this.options.callbackConnection({ success: false, connected: false, info: "Lost Port Connection!" });
                     reject({ success: false, data: err });
                 });
             }
