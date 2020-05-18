@@ -66,6 +66,7 @@ See file PDF doc on root folder, in there you can see all is possible to do and 
  - Tests
  - Onboard RFID reader
  - Check capture box status
+ - Generic string to connect linux port
 
 License
 ----
