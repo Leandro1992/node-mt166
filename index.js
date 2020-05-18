@@ -95,7 +95,7 @@ class MT166 {
     readingPosition() {
         return new Promise((resolve, reject) => {
             this.checkStock().then((stock) => {
-                if (!stock.empty) {
+                if (stock.success && !stock.data.empty) {
                     this.sendCommand(Util.readPosition()).then((data) => {
                         if (this.checkBufferResult(data, Util.RETURN_OPERATION_SUCCEED)) {
                             resolve({ success: true, data: { info: "Card on the read position", stock } });
@@ -104,7 +104,7 @@ class MT166 {
                         }
                     }).catch(reject);
                 } else {
-                    resolve({ success: false, data: { info: "Stock is empty!", stock } })
+                    resolve({ success: false, data: { info: "Stock is empty!", stock: stock.data } })
                 }
             }).catch(reject);
         })
@@ -125,7 +125,7 @@ class MT166 {
     finalPosition() {
         return new Promise((resolve, reject) => {
             this.checkStock().then((stock) => {
-                if (!stock.empty) {
+                if (stock.success && !stock.data.empty) {
                     this.sendCommand(Util.dispensePosition()).then((data) => {
                         if (this.checkBufferResult(data, Util.RETURN_OPERATION_SUCCEED)) {
                             resolve({ success: true, data: { info: "Card on the dispense position", stock } });
@@ -134,7 +134,7 @@ class MT166 {
                         }
                     }).catch(reject);
                 } else {
-                    resolve({ success: false, data: { info: "Stock is empty!", stock } })
+                    resolve({ success: false, data: { info: "Stock is empty!", stock: stock.data } })
                 }
             }).catch(reject);
         })
