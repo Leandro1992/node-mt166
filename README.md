@@ -18,7 +18,7 @@ const MT166 = require('node-mt166')
 const options = {
     port: 6, //default
     baudRate: 9600, //default
-    callbackConnection: console.log //default 
+    callbackConnection: console.log, //default 
     autoDiscovery: false //default
 }
 
