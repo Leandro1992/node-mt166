@@ -53,6 +53,7 @@ let dispenser = new MT166({autoDiscovery: true, callbackConnection:(result) => {
   - **Move To Capture Box** - Discard card
   - **Move To Read Position** - Move to reader RFID
   - **Move To Dispense Position** - Move out but not fully
+  - **Move To Out Fully** - Move out fully
   - **Card Box Status** - Check if card box is low or empty
   - **Check Card Read Position** - Check if has a card in reader position
   - **Check Card Dispense Position** - Check if has a card in reader position

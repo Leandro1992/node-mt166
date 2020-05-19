@@ -140,6 +140,24 @@ class MT166 {
         })
     }
 
+    sendCardToOut() {
+        return new Promise((resolve, reject) => {
+            this.checkStock().then((stock) => {
+                if (stock.success && !stock.data.empty) {
+                    this.sendCommand(Util.dispenseToOut()).then((data) => {
+                        if (this.checkBufferResult(data, Util.RETURN_OPERATION_SUCCEED)) {
+                            resolve({ success: true, data: { info: "Card sended to out", stock } });
+                        } else {
+                            resolve({ success: false, data: { info: "Error send card to out", stock } });
+                        }
+                    }).catch(reject);
+                } else {
+                    resolve({ success: false, data: { info: "Stock is empty!", stock: stock.data } })
+                }
+            }).catch(reject);
+        })
+    }
+
     finalPositionIsOccupied() {
         return new Promise((resolve, reject) => {
             this.sendCommand(Util.checkCardDispensePostion()).then((data) => {
