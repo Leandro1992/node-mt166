@@ -98,9 +98,9 @@ class MT166 {
                 if (stock.success && !stock.data.empty) {
                     this.sendCommand(Util.readPosition()).then((data) => {
                         if (this.checkBufferResult(data, Util.RETURN_OPERATION_SUCCEED)) {
-                            resolve({ success: true, data: { info: "Card on the read position", stock } });
+                            resolve({ success: true, data: { info: "Card on the read position", stock: stock.data } });
                         } else {
-                            resolve({ success: false, data: { info: "Error send card to read position", stock } });
+                            resolve({ success: false, data: { info: "Error send card to read position", stock: stock.data } });
                         }
                     }).catch(reject);
                 } else {
@@ -122,15 +122,15 @@ class MT166 {
         })
     }
 
-    finalPosition() {
+    finalPosition(force) {
         return new Promise((resolve, reject) => {
             this.checkStock().then((stock) => {
-                if (stock.success && !stock.data.empty) {
+                if (stock.success && !stock.data.empty || force) {
                     this.sendCommand(Util.dispensePosition()).then((data) => {
                         if (this.checkBufferResult(data, Util.RETURN_OPERATION_SUCCEED)) {
-                            resolve({ success: true, data: { info: "Card on the dispense position", stock } });
+                            resolve({ success: true, data: { info: "Card on the dispense position", stock: stock.data } });
                         } else {
-                            resolve({ success: false, data: { info: "Error send card to dispense position", stock } });
+                            resolve({ success: false, data: { info: "Error send card to dispense position", stock: stock.data } });
                         }
                     }).catch(reject);
                 } else {
@@ -140,15 +140,15 @@ class MT166 {
         })
     }
 
-    sendCardToOut() {
+    sendCardToOut(force) {
         return new Promise((resolve, reject) => {
             this.checkStock().then((stock) => {
-                if (stock.success && !stock.data.empty) {
+                if (stock.success && !stock.data.empty || force) {
                     this.sendCommand(Util.dispenseToOut()).then((data) => {
                         if (this.checkBufferResult(data, Util.RETURN_OPERATION_SUCCEED)) {
-                            resolve({ success: true, data: { info: "Card sended to out", stock } });
+                            resolve({ success: true, data: { info: "Card sended to out", stock: stock.data } });
                         } else {
-                            resolve({ success: false, data: { info: "Error send card to out", stock } });
+                            resolve({ success: false, data: { info: "Error send card to out", stock: stock.data } });
                         }
                     }).catch(reject);
                 } else {
@@ -178,7 +178,7 @@ class MT166 {
                         if (this.checkBufferResult(data, Util.RETURN_OPERATION_SUCCEED)) {
                             resolve({ success: true, data: { info: "Card moved to down box!" } });
                         } else {
-                            resolve({ success: false, data: { info: "Error on move card to down box", stock } });
+                            resolve({ success: false, data: { info: "Error on move card to down box" } });
                         }
                     }).catch(reject);
                 } else {
