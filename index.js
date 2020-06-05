@@ -79,13 +79,21 @@ class MT166 {
         return new Promise((resolve, reject) => {
             let stock = { empty: false, ending: false };
             this.sendCommand(Util.checkIfBoxIsPreEmpty()).then((data) => {
-                console.log(data, "buffer")
                 stock.ending = this.checkBufferResult(data, Util.DISPENSER_STATUS_CARD_SHORTAGE);
                 stock.empty = this.checkBufferResult(data, Util.DISPENSER_STATUS_BOX_EMPTY);
                 resolve({ success: true, data: stock });
             }).catch(reject)
         })
     }
+
+    allowCard() {
+        return new Promise((resolve, reject) => {
+            this.sendCommand(Util.allowCard()).then((data) => {
+                resolve({ success: true, data: data });
+            }).catch(reject)
+        })
+    }
+
 
     readingPosition() {
         return new Promise((resolve, reject) => {
