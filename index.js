@@ -56,6 +56,7 @@ class MT166 {
                 console.log(`It is not our hardware on port ${startPort}: ${err}`)
                 if (startPort == endPort) {
                     console.log(`There is no device recognized!`)
+                    this.port.close();
                     this.options.callbackConnection({ success: false, connected: false, info: "There is no device recognized!" });
                 } else {
                     this.autoDiscoveryConnection(startPort + 1, endPort)
